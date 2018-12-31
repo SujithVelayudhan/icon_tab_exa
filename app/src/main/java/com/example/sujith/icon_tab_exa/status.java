@@ -12,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -28,11 +30,22 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class status extends Fragment {
     RecyclerView recycler_statusp;
     ArrayList<String> nameA,messageA,timeA;
+    ArrayList<String> arrayList = new ArrayList<>
+            (Arrays.asList("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"));
     int[] img={R.drawable.doctorc,R.drawable.patient,R.drawable.lock,R.drawable.icon4,
             R.drawable.elephant,R.drawable.dot,R.drawable.phone,R.drawable.sms1};
     Verticadapt adapt;
 
     VideoView s_video;
+
+    MediaController mediac;
 
 
     public status() {
@@ -45,6 +58,8 @@ public class status extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vs= inflater.inflate(R.layout.fragment_status, container, false);
+
+        mediac=new MediaController(vs.getContext());
 
         recycler_statusp=vs.findViewById(R.id.recycler_status);
         nameA=new ArrayList<>();
@@ -132,17 +147,25 @@ public class status extends Fragment {
                         AlertDialog A=AB.create();
                         A.show();
 
-                    if (i==0)
-                    {
+//                    if (i==0)
+//                    {
+//
+//                        String video_path = "android.resource://com.example.sujith.icon_tab_exa/"
+//                                + R.raw.song;
+//                        s_video.setVideoURI(Uri.parse(video_path));
+//                        s_video.start();
+//
+//
+//
+//                    }
 
-                        String video_path = "android.resource://com.example.sujith.icon_tab_exa/"
-                                + R.raw.song;
-                        s_video.setVideoURI(Uri.parse(video_path));
-                        s_video.start();
+                    s_video.setVideoURI(Uri.parse(arrayList.get(i)));
+                    s_video.setMediaController(mediac);
+                    mediac.setAnchorView(s_video);
+
+                    s_video.start();
 
 
-
-                    }
                 }
             });
 
